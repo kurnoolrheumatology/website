@@ -3,298 +3,777 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kurnool Rheumatology Centre offers specialized care for all rheumatological conditions under the expert guidance of Dr. Sree Hari Reddy Gadekallu.">
-    <title>Kurnool Rheumatology Centre - Expert Rheumatology Care in Kurnool</title>
-    <link rel="stylesheet" href="css/index.css">
+    <title>HealthGuide - Your Medical Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .phone-container {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 40px;
+            padding: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: #f8fafc;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .status-bar {
+            height: 44px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .content {
+            height: calc(100% - 44px);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .page {
+            display: none;
+            padding: 20px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: -20px -20px 30px -20px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 16px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .card-description {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .condition-card {
+            background: linear-gradient(135deg, #f1f5f9, #ffffff);
+        }
+
+        .condition-detail {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .condition-header {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .condition-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .condition-content {
+            padding: 24px 20px;
+        }
+
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .symptom-list, .treatment-list {
+            list-style: none;
+        }
+
+        .symptom-list li, .treatment-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .symptom-list li:before {
+            content: "•";
+            color: #ef4444;
+            font-weight: bold;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+
+        .treatment-list li:before {
+            content: "✓";
+            color: #22c55e;
+            font-weight: bold;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f8fafc;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
+
+        .back-button:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .floating-contact {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+
+        .floating-contact:hover {
+            transform: scale(1.1);
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+
+        .search-bar {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px;
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Color scheme for different conditions */
+        .arthritis { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+        .back-pain { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+        .fibro { background: linear-gradient(135deg, #fce7f3, #fbcfe8); }
+        .gout { background: linear-gradient(135deg, #fed7d7, #feb2b2); }
+        .osteo { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <img src="img/2.png" alt="Kurnool Rheumatology Centre Logo" width="120" height="50">
+    <div class="phone-container">
+        <div class="screen">
+            <div class="status-bar">
+                <span>HealthGuide</span>
+                <span>•••</span>
             </div>
-            <button class="mobile-nav-toggle">☰</button>
-            <ul class="nav-menu">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#doctor">Doctor</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Expert Rheumatology Care in Kurnool</h1>
-                <p>Specialized treatment for all rheumatological conditions under the expert guidance of Dr. Sree Hari Reddy Gadekallu</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn">Contact Us</a>
-                    <a href="#services" class="btn btn-outline">Our Services</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="section">
-        <div class="container">
-            <h2 class="section-title">Our Services</h2>
-            <p class="section-subtitle">We provide comprehensive care for all rheumatological conditions</p>
             
-            <div class="services-grid">
-                <div class="card service-card">
-                    <div class="service-icon">💉</div>
-                    <h3>Intra-articular Injections</h3>
-                    <p>Specialized injections directly into the joint space to reduce pain and inflammation.</p>
-                </div>
-                
-                <div class="card service-card">
-                    <div class="service-icon">🦴</div>
-                    <h3>Arthritis Management</h3>
-                    <p>Comprehensive treatment plans for various types of arthritis, including rheumatoid, psoriatic, and osteoarthritis.</p>
-                </div>
-                
-                <div class="card service-card">
-                    <div class="service-icon">🔬</div>
-                    <h3>Autoimmune Disease Treatment</h3>
-                    <p>Advanced care for lupus, scleroderma, vasculitis, and other autoimmune conditions.</p>
-                </div>
-                
-                <div class="card service-card">
-                    <div class="service-icon">🧪</div>
-                    <h3>Diagnostic Services</h3>
-                    <p>Comprehensive evaluation and accurate diagnosis of rheumatological conditions.</p>
-                </div>
-                
-                <div class="card service-card">
-                    <div class="service-icon">🧠</div>
-                    <h3>Patient Education</h3>
-                    <p>Empowering patients with knowledge about their condition and self-management strategies.</p>
-                </div>
-                
-                <div class="card service-card">
-                    <div class="service-icon">📋</div>
-                    <h3>Personalized Treatment Plans</h3>
-                    <p>Tailored therapeutic approaches to address each patient's unique needs and condition.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section" style="background-color: var(--secondary-color);">
-        <div class="container">
-            <h2 class="section-title">About Our Clinic</h2>
-            
-            <div class="about-content">
-                <div class="about-image">
-                    <img src="img/2.png" alt="Kurnool Rheumatology Centre">
-                </div>
-                <div class="about-text">
-                    <h3>Welcome to Kurnool Rheumatology Centre</h3>
-                    <p>Established with a vision to provide world-class rheumatology care in Kurnool, our clinic offers comprehensive treatment for all rheumatological conditions in a patient-centered environment.</p>
-                    <p>Our state-of-the-art facility is equipped with modern technology and staffed by experienced healthcare professionals committed to improving the quality of life for our patients.</p>
-                    <p>Located near Amma Hospital in Madhava Nagar, we are easily accessible and dedicated to serving the community with excellence in rheumatology care.</p>
-                    <a href="#contact" class="btn" style="margin-top: 20px;">Get in Touch</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Doctor Section -->
-    <section id="doctor" class="section">
-        <div class="container">
-            <h2 class="section-title">Meet Our Specialist</h2>
-            
-            <div class="doctor-profile">
-                <div class="doctor-image">
-                    <img src="img/Sree Hari Reddy.jpg" alt="Dr. Sree Hari Reddy Gadekallu">
-                </div>
-                <div class="doctor-info">
-                    <h3>Dr. Sree Hari Reddy Gadekallu</h3>
-                    <p>MD, MRCP - SCE (Rheumatology)</p>
-                    <p>With over 9 years of experience and having treated more than 15,000 patients, Dr. Sree Hari Reddy is a leading rheumatologist committed to providing exceptional care.</p>
-                    <p>Dr. Reddy combines his extensive medical expertise with a compassionate approach, ensuring each patient receives personalized attention and the most effective treatment options available.</p>
-                    <p>His dedication to staying current with the latest advancements in rheumatology enables him to offer cutting-edge care for even the most complex rheumatological conditions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="section" style="background-color: var(--secondary-color);">
-        <div class="container">
-            <h2 class="section-title">Patient Testimonials</h2>
-            <p class="section-subtitle">What our patients say about their experience with us</p>
-            
-            <div class="testimonials-slider">
-                <div class="testimonial">
-                    <p class="testimonial-content">"After years of suffering from rheumatoid arthritis, I finally found relief under Dr. Reddy's care. His expertise and personalized approach have made a tremendous difference in my quality of life."</p>
-                    <p class="testimonial-author">- Rajesh K.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section id="blog" class="section">
-        <div class="container">
-            <h2 class="section-title">Latest Articles</h2>
-            <p class="section-subtitle">Stay informed with our latest updates on rheumatology care</p>
-            
-            <div class="blog-grid">
-                <div class="card blog-card">
-                    <div class="blog-image">
-                        <img src="/api/placeholder/400/200" alt="Blog Post">
-                    </div>
-                    <p class="blog-date">April 5, 2025</p>
-                    <h3>Understanding Rheumatoid Arthritis</h3>
-                    <p>Explore the causes, symptoms, and modern treatment options for rheumatoid arthritis in this comprehensive guide.</p>
-                    <a href="#" class="btn" style="margin-top: 15px;">Read More</a>
-                </div>
-                
-                <div class="card blog-card">
-                    <div class="blog-image">
-                        <img src="/api/placeholder/400/200" alt="Blog Post">
-                    </div>
-                    <p class="blog-date">March 22, 2025</p>
-                    <h3>The Role of Diet in Managing Inflammatory Conditions</h3>
-                    <p>Discover how certain dietary changes can help manage inflammation and improve symptoms of rheumatological conditions.</p>
-                    <a href="#" class="btn" style="margin-top: 15px;">Read More</a>
-                </div>
-                
-                <div class="card blog-card">
-                    <div class="blog-image">
-                        <img src="/api/placeholder/400/200" alt="Blog Post">
-                    </div>
-                    <p class="blog-date">March 10, 2025</p>
-                    <h3>Advances in Lupus Treatment</h3>
-                    <p>Learn about the latest breakthroughs in lupus treatment and how they are changing the outlook for patients.</p>
-                    <a href="#" class="btn" style="margin-top: 15px;">Read More</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section" style="background-color: var(--secondary-color);">
-        <div class="container">
-            <h2 class="section-title">Contact Us</h2>
-            <p class="section-subtitle">We're here to help with any questions you might have</p>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <h3>Location</h3>
-                            <p>Near Amma Hospital, Madhava Nagar,<br>Nandyal Road, Kurnool</p>
-                        </div>
+            <div class="content">
+                <!-- Home Page -->
+                <div class="page active" id="home">
+                    <div class="hero">
+                        <h1>HealthGuide</h1>
+                        <p>Your personal medical companion</p>
                     </div>
                     
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div>
-                            <h3>Phone</h3>
-                            <p>8333837666</p>
+                    <input type="text" class="search-bar" placeholder="Search conditions..." id="searchBar">
+                    
+                    <div class="card" onclick="showPage('conditions')">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white;">
+                                🏥
+                            </div>
+                            <div>
+                                <div class="card-title">Medical Conditions</div>
+                                <div class="card-description">Learn about common health conditions</div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">✉️</div>
-                        <div>
-                            <h3>Email</h3>
-                            <p>kurnool.rheumatology@gmail.com</p>
+
+                    <div class="card" onclick="showPage('contact')">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white;">
+                                📞
+                            </div>
+                            <div>
+                                <div class="card-title">Contact Us</div>
+                                <div class="card-description">Get in touch with our medical team</div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">🕒</div>
-                        <div>
-                            <h3>Hours</h3>
-                            <p>Monday-Saturday: 9:00 AM - 8:00 PM<br>Sunday: Closed</p>
+
+                    <div class="card" onclick="showPage('about')">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">
+                                ℹ️
+                            </div>
+                            <div>
+                                <div class="card-title">About Our Clinic</div>
+                                <div class="card-description">Learn more about our services</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="contact-form">
-                    <form id="contactForm">
+
+                <!-- Conditions List Page -->
+                <div class="page" id="conditions">
+                    <button class="back-button" onclick="showPage('home')">←</button>
+                    <div class="hero">
+                        <h1>Medical Conditions</h1>
+                        <p>Comprehensive health information</p>
+                    </div>
+
+                    <div class="card condition-card arthritis" onclick="showCondition('arthritis')">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: #f59e0b; color: white;">🦴</div>
+                            <div>
+                                <div class="card-title">Arthritis</div>
+                                <div class="card-description">Joint inflammation and pain</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card condition-card back-pain" onclick="showCondition('backpain')">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: #3b82f6; color: white;">🔙</div>
+                            <div>
+                                <div class="card-title">Back Pain & Stiffness</div>
+                                <div class="card-description">Lower back pain and morning stiffness</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card condition-card fibro" onclick="showCondition('fibro')">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: #ec4899; color: white;">💪</div>
+                            <div>
+                                <div class="card-title">Fibromyalgia</div>
+                                <div class="card-description">Widespread muscle pain and fatigue</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card condition-card gout" onclick="showCondition('gout')">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: #ef4444; color: white;">🦶</div>
+                            <div>
+                                <div class="card-title">Gout</div>
+                                <div class="card-description">Painful joint inflammation</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card condition-card osteo" onclick="showCondition('osteo')">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: #6366f1; color: white;">🦴</div>
+                            <div>
+                                <div class="card-title">Osteoporosis</div>
+                                <div class="card-description">Weak and brittle bones</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Individual Condition Pages -->
+                <div class="page" id="arthritis">
+                    <button class="back-button" onclick="showPage('conditions')">←</button>
+                    <div class="condition-detail">
+                        <div class="condition-header arthritis">
+                            <h2>🦴 Arthritis</h2>
+                            <p>Joint inflammation causing pain and stiffness</p>
+                        </div>
+                        <div class="condition-content">
+                            <div class="section">
+                                <h3><span class="section-icon">⚠️</span>Common Signs</h3>
+                                <ul class="symptom-list">
+                                    <li>Joint pain and stiffness</li>
+                                    <li>Swelling around joints</li>
+                                    <li>Reduced range of motion</li>
+                                    <li>Morning stiffness lasting over an hour</li>
+                                    <li>Joint warmth and redness</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <h3><span class="section-icon">✅</span>Treatment Options</h3>
+                                <ul class="treatment-list">
+                                    <li>Anti-inflammatory medications</li>
+                                    <li>Physical therapy exercises</li>
+                                    <li>Joint protection techniques</li>
+                                    <li>Heat and cold therapy</li>
+                                    <li>Regular gentle exercise</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="showPage('contact')">Get Help</button>
+                                <button class="btn btn-secondary" onclick="showPage('conditions')">Other Conditions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page" id="backpain">
+                    <button class="back-button" onclick="showPage('conditions')">←</button>
+                    <div class="condition-detail">
+                        <div class="condition-header back-pain">
+                            <h2>🔙 Back Pain & Stiffness</h2>
+                            <p>Lower back pain and morning stiffness</p>
+                        </div>
+                        <div class="condition-content">
+                            <div class="section">
+                                <h3><span class="section-icon">⚠️</span>Common Signs</h3>
+                                <ul class="symptom-list">
+                                    <li>Lower back pain and stiffness, especially in the morning</li>
+                                    <li>Pain improves with movement and exercise</li>
+                                    <li>Pain may wake you up at night</li>
+                                    <li>Stiffness after periods of rest</li>
+                                    <li>Sometimes affects hips, shoulders, or other joints</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <h3><span class="section-icon">✅</span>Treatment Options</h3>
+                                <ul class="treatment-list">
+                                    <li>Specific exercises and physiotherapy</li>
+                                    <li>Anti-inflammatory medications</li>
+                                    <li>Biologics for severe cases</li>
+                                    <li>Posture training</li>
+                                    <li>Heat therapy</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="showPage('contact')">Get Evaluated</button>
+                                <button class="btn btn-secondary" onclick="showPage('conditions')">Other Conditions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page" id="fibro">
+                    <button class="back-button" onclick="showPage('conditions')">←</button>
+                    <div class="condition-detail">
+                        <div class="condition-header fibro">
+                            <h2>💪 Fibromyalgia</h2>
+                            <p>Widespread muscle pain and tenderness</p>
+                        </div>
+                        <div class="condition-content">
+                            <div class="section">
+                                <h3><span class="section-icon">⚠️</span>Common Signs</h3>
+                                <ul class="symptom-list">
+                                    <li>Widespread muscle pain and aching</li>
+                                    <li>Tender spots on your body</li>
+                                    <li>Extreme fatigue</li>
+                                    <li>Sleep problems</li>
+                                    <li>Morning stiffness</li>
+                                    <li>Headaches</li>
+                                    <li>Difficulty concentrating ("fibro fog")</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <h3><span class="section-icon">✅</span>Treatment Options</h3>
+                                <ul class="treatment-list">
+                                    <li>Gentle exercise programs</li>
+                                    <li>Sleep hygiene improvements</li>
+                                    <li>Stress management techniques</li>
+                                    <li>Medications for pain and sleep</li>
+                                    <li>Physiotherapy</li>
+                                    <li>Counseling support</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="showPage('contact')">We Can Help</button>
+                                <button class="btn btn-secondary" onclick="showPage('conditions')">Other Conditions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page" id="gout">
+                    <button class="back-button" onclick="showPage('conditions')">←</button>
+                    <div class="condition-detail">
+                        <div class="condition-header gout">
+                            <h2>🦶 Gout</h2>
+                            <p>Painful arthritis from uric acid crystals</p>
+                        </div>
+                        <div class="condition-content">
+                            <div class="section">
+                                <h3><span class="section-icon">⚠️</span>Common Signs</h3>
+                                <ul class="symptom-list">
+                                    <li>Sudden, severe joint pain (often the big toe)</li>
+                                    <li>Swelling and redness around the joint</li>
+                                    <li>Joint feels hot to touch</li>
+                                    <li>Attacks often happen at night</li>
+                                    <li>Pain is so bad you can't stand anything touching it</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <h3><span class="section-icon">✅</span>Treatment Options</h3>
+                                <ul class="treatment-list">
+                                    <li>Medications to stop acute attacks</li>
+                                    <li>Long-term medications to prevent attacks</li>
+                                    <li>Dietary changes</li>
+                                    <li>Staying well hydrated</li>
+                                    <li>Avoiding trigger foods and drinks</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="showPage('contact')">Get Relief</button>
+                                <button class="btn btn-secondary" onclick="showPage('conditions')">Other Conditions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page" id="osteo">
+                    <button class="back-button" onclick="showPage('conditions')">←</button>
+                    <div class="condition-detail">
+                        <div class="condition-header osteo">
+                            <h2>🦴 Osteoporosis</h2>
+                            <p>Weak and brittle bones</p>
+                        </div>
+                        <div class="condition-content">
+                            <div class="section">
+                                <h3><span class="section-icon">⚠️</span>Common Signs</h3>
+                                <ul class="symptom-list">
+                                    <li>Often no symptoms until a fracture occurs</li>
+                                    <li>Back pain from spinal fractures</li>
+                                    <li>Loss of height over time</li>
+                                    <li>Stooped posture</li>
+                                    <li>Fractures from minor falls or bumps</li>
+                                </ul>
+                            </div>
+                            <div class="section">
+                                <h3><span class="section-icon">✅</span>Treatment Options</h3>
+                                <ul class="treatment-list">
+                                    <li>Calcium and vitamin D supplements</li>
+                                    <li>Weight-bearing exercises</li>
+                                    <li>Medications to strengthen bones</li>
+                                    <li>Fall prevention strategies</li>
+                                    <li>Lifestyle modifications</li>
+                                </ul>
+                            </div>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" onclick="showPage('contact')">Bone Density Test</button>
+                                <button class="btn btn-secondary" onclick="showPage('conditions')">Other Conditions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Page -->
+                <div class="page" id="contact">
+                    <button class="back-button" onclick="showPage('home')">←</button>
+                    <div class="hero">
+                        <h1>Contact Us</h1>
+                        <p>We're here to help you</p>
+                    </div>
+
+                    <div class="contact-form">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Name" required>
+                            <label>Your Name</label>
+                            <input type="text" placeholder="Enter your full name">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Your Email" required>
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="Your phone number">
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control" placeholder="Your Phone">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="your.email@example.com">
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                            <label>How can we help?</label>
+                            <textarea rows="4" placeholder="Describe your symptoms or questions..."></textarea>
                         </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
+                        <button class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </div>
+                </div>
+
+                <!-- About Page -->
+                <div class="page" id="about">
+                    <button class="back-button" onclick="showPage('home')">←</button>
+                    <div class="hero">
+                        <h1>About Our Clinic</h1>
+                        <p>Quality healthcare, compassionate care</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white;">
+                                👩‍⚕️
+                            </div>
+                            <div>
+                                <div class="card-title">Expert Medical Team</div>
+                                <div class="card-description">Board-certified physicians with years of experience</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white;">
+                                🏥
+                            </div>
+                            <div>
+                                <div class="card-title">Modern Facilities</div>
+                                <div class="card-description">State-of-the-art equipment and comfortable environment</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">
+                                ❤️
+                            </div>
+                            <div>
+                                <div class="card-title">Patient-Centered Care</div>
+                                <div class="card-description">Personalized treatment plans for every patient</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="/api/placeholder/200/60" alt="Kurnool Rheumatology Centre Logo">
-                    <p>Providing expert care for all rheumatological conditions in Kurnool.</p>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#doctor">Doctor</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#services">Intra-articular Injections</a></li>
-                        <li><a href="#services">Arthritis Management</a></li>
-                        <li><a href="#services">Autoimmune Disease Treatment</a></li>
-                        <li><a href="#services">Diagnostic Services</a></li>
-                        <li><a href="#services">Patient Education</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li>Near Amma Hospital, Madhava Nagar</li>
-                        <li>Nandyal Road, Kurnool</li>
-                        <li>8333837666</li>
-                        <li>kurnool.rheumatology@gmail.com</li>
-                    </ul>
-                </div>
-            </div>
+    <button class="floating-contact" onclick="showPage('contact')">
+        📞
+    </button>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 Kurnool Rheumatology Centre. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+        }
 
-    <!-- JavaScript -->
-    <script src="js/index.js"></script>
+        function showCondition(conditionId) {
+            showPage(conditionId);
+        }
+
+        // Search functionality
+        document.getElementById('searchBar').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const conditionCards = document.querySelectorAll('.condition-card');
+            
+            conditionCards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Add some interactive feedback
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            card.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
 </body>
 </html>
